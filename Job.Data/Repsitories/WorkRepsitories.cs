@@ -1,5 +1,6 @@
 ﻿using Job.Core.Entities;
 using Job.Core.Repsitories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Job.Data.Repsitories
         {
             Work w = _contex.works.Where(e => e.Id == id).FirstOrDefault();
             _contex.works.Remove(w);
+            _contex.SaveChanges();
         }
 
         public Work Get(int id)
@@ -27,17 +29,19 @@ namespace Job.Data.Repsitories
             return _contex.works.Where(e => e.Id == id).FirstOrDefault();
         }
 
-        public List<Work> GetList()
+        public DbSet<Work> GetList()
         {
-            return _contex.works.ToList();
+            return _contex.works;
         }
 
-        public void Post(Work value)
+        public Work Post(Work value)
         {
             _contex.works.Add(value);
+            _contex.SaveChanges();
+            return value;
         }
 
-        public void Put(int id, Work value)
+        public Work Put(int id, Work value)
         {
             Work jobToUpdate = _contex.works.Where(e => e.Id == id).FirstOrDefault();
             if (jobToUpdate != null)
@@ -49,6 +53,8 @@ namespace Job.Data.Repsitories
             }
             else
                 _contex.works.Add(value);
+            _contex.SaveChanges();
+            return value;
 
         }
     }

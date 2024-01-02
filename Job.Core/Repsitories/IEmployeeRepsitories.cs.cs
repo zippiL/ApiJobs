@@ -1,4 +1,5 @@
 ﻿using Job.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Job.Core.Repsitories
 {
     public interface IEmployeeRepsitories
     {
-        List<Employee> GetList();
+        DbSet<Employee> GetList();
         Employee Get(int id);
-        void Post(Employee newEmployee);
-        void Put(int id, Employee emp);
-        void PutStatus(int id);
+        Employee Post(Employee newEmployee);
+        Employee Put(int id, Employee emp);
+        public Employee PutStatus(int id);
     }
 }

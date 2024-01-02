@@ -14,7 +14,7 @@ namespace ExpressJobApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeServer;
-        public EmployeeController(EmployeeService employeeServer)
+        public EmployeeController(IEmployeeService employeeServer)
         {
             _employeeServer = employeeServer;
         }

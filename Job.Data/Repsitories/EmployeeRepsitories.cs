@@ -1,5 +1,6 @@
 ﻿using Job.Core.Entities;
 using Job.Core.Repsitories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +16,24 @@ namespace Job.Data.Repsitories
         {
             _contex = contex;
         }
-        public List<Employee> GetList()
+        public DbSet<Employee> GetList()
         {
-            return _contex.employees.ToList();
+            return _contex.employees;
         }
         public Employee Get(int id)
         {
-            return _contex.employees.ToList().Find(e => e.Id == id);
+            return _contex.employees.Find(id);
         }
       
 
-        public void Post(Employee newEmployee)
+        public Employee Post(Employee newEmployee)
         {
             _contex.employees.Add(newEmployee);
+            _contex.SaveChanges();
+            return newEmployee;
         }
 
-        public void Put(int id, Employee emp)
+        public Employee Put(int id, Employee emp)
         {
             Employee empToUpdate = _contex.employees.ToList().Find(e => e.Id == id);
             if (empToUpdate != null)
@@ -44,18 +47,21 @@ namespace Job.Data.Repsitories
             }
             else
                 _contex.employees.Add(emp);
-
+            _contex.SaveChanges();
+            return emp;
         }
 
-        public void PutStatus(int id)
+        public Employee PutStatus(int id)
         {
-            Employee e = _contex.employees.ToList().Find(e => e.Id == id);
+            Employee e = _contex.employees.Find( id);
             if (e != null)
             {
                 if (e.Status)
                     e.Status = false;
                 else e.Status = true;
             }
+            _contex.SaveChanges();
+            return e;
         }
     }
 }

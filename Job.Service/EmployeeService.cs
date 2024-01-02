@@ -1,6 +1,7 @@
 ﻿using Job.Core.Entities;
 using Job.Core.Repsitories;
 using Job.Core.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,10 @@ namespace Job.Service
             return _employeeRepsitories.Get(id);
         }
 
-        public List<Employee> GetList() => _employeeRepsitories.GetList();
+        public DbSet<Employee> GetList()
+        {
+            return _employeeRepsitories.GetList();
+        }
 
         public void Post(Employee newEmployee)
         {
