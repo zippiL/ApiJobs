@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Work.Core.DTOs;
 using Work.Core.Entities;
 using Work.Core.Services;
+using WorkAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,9 +39,11 @@ namespace WorkAPI.Controllers
 
         // POST api/<EmployeeController>
         [HttpPost]
-        public async Task Post([FromBody] Employee employee)
+        public async Task Post([FromBody] EmployeePostModel employee)
         {
-           await _employeeService.AddAsync(employee);
+            //await _employeeService.AddAsync(employee);
+            await _employeeService.AddAsync(_mapper.Map<Employee>(employee));
+
         }
 
         // PUT api/<EmployeeController>/5

@@ -46,9 +46,9 @@ namespace WorkAPI.Controllers
 
         // DELETE api/<EmployerController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public  async void Delete(int id)
         {
-            _employerService.DeleteById(id);
+           await _employerService.DeleteByIdAsync(id);
         }
     }
 }

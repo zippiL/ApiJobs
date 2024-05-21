@@ -9,7 +9,7 @@ namespace WorkAPI.Mapping
     {
         public ApiMappingProfile()
         {
-            CreateMap<EmployeePostModel, Employee>();
+            CreateMap<EmployeePostModel, Employee>().ReverseMap();
             
 
         }
